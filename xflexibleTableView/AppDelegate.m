@@ -7,8 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
-@interface AppDelegate ()
+#import <CoreTelephony/CTCellularData.h>
+#import <UserNotifications/UserNotifications.h>
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
 
@@ -17,9 +18,49 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    CTCellularData *cellularData = [[CTCellularData alloc] init];
+    // 状态发生变化时调用
+    cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState) {
+        switch (restrictedState) {
+            case kCTCellularDataRestrictedStateUnknown:
+                NSLog(@"蜂窝移动网络状态：未知");
+                break;
+            case kCTCellularDataRestricted:
+                NSLog(@"蜂窝移动网络状态：关闭");
+                break;
+            case kCTCellularDataNotRestricted:
+                NSLog(@"蜂窝移动网络状态：开启");
+                break;
+                
+            default:
+                break;
+        }
+    };
+    
+    
+    UNUserNotificationCenter* center=[UNUserNotificationCenter currentNotificationCenter];
+  
+    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        
+    }];
+    center.delegate = self;
+    // 2.注册远程推送
+    [application registerForRemoteNotifications];
+    
+    
     return YES;
 }
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 
+{
+    NSLog(@"the info is %@",userInfo);
+}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"device token is:%@\n datatoken=%@", token,deviceToken);
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -46,6 +87,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"Registfail，注册推送失败原因%@",error);
+}
 
 @end

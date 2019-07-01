@@ -26,6 +26,7 @@
 		8D95D03822C2133500729660 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D95D03A22C2133500729660 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D95D03B22C2133500729660 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8DAD826622C46DF3003197C6 /* xflexibleTableView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xflexibleTableView.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 		8D95D02B22C2133300729660 /* xflexibleTableView */ = {
 			isa = PBXGroup;
 			children = (
+				8DAD826622C46DF3003197C6 /* xflexibleTableView.entitlements */,
 				8D95D02C22C2133300729660 /* AppDelegate.h */,
 				8D95D02D22C2133300729660 /* AppDelegate.m */,
 				8D95D02F22C2133300729660 /* ViewController.h */,
@@ -102,6 +104,11 @@
 				TargetAttributes = {
 					8D95D02822C2133300729660 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -285,15 +292,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = xflexibleTableView/xflexibleTableView.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = W9NL22UZBN;
 				INFOPLIST_FILE = xflexibleTableView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = meAuto.xflexibleTableView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chuxing.mojie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = mojiechuxing;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -302,15 +311,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W9NL22UZBN;
+				CODE_SIGN_ENTITLEMENTS = xflexibleTableView/xflexibleTableView.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = xflexibleTableView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = meAuto.xflexibleTableView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chuxing.mojie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
