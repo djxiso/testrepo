@@ -39,7 +39,7 @@
     UITextView* textView=[[UITextView alloc]initWithFrame:CGRectMake(100, 100, 200, 50) textContainer:nil];
     
     
-    
+    //在的
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
